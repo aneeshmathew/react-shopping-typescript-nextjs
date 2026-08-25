@@ -77,6 +77,8 @@ src/
 
 ## Key Concepts
 
+Shopping App
+
 ### Server vs Client Components
 
 All product fetching and rendering happens in server components (`components/server/`). No product data fetch logic is shipped to the browser. Client components (`components/client/`) handle only what requires interactivity — cart state, click handlers, and session display.
