@@ -41,7 +41,7 @@ export default async function ProductList({
 
   if (hasError) {
     return (
-      <div className="text-center py-20 text-gray-500">
+      <div className="text-center py-20 text-slate-400">
         We couldn&apos;t load products right now. Please try again in a moment.
       </div>
     );
@@ -49,7 +49,7 @@ export default async function ProductList({
 
   if (products.length === 0) {
     return (
-      <div className="text-center py-20 text-gray-500">
+      <div className="text-center py-20 text-slate-400">
         No products match your filters.
       </div>
     );

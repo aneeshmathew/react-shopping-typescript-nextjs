@@ -16,7 +16,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geist.variable} antialiased bg-gray-50 min-h-screen`}>
+      <body className={`${geist.variable} antialiased min-h-screen`}>
         <Providers>
           <NavBar />
           <main>{children}</main>

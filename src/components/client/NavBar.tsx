@@ -17,12 +17,12 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
+      <nav className="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link
               href="/"
-              className="text-xl font-bold text-indigo-600 tracking-tight"
+              className="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent"
             >
               ShopNext
             </Link>
@@ -30,12 +30,12 @@ export default function NavBar() {
             <div className="flex items-center gap-4">
               {session ? (
                 <>
-                  <span className="hidden sm:block text-sm text-gray-600">
+                  <span className="hidden sm:block text-sm text-slate-400">
                     Hello, {session.user?.name?.split(" ")[0]}
                   </span>
                   <button
                     onClick={() => signOut({ callbackUrl: "/" })}
-                    className="text-sm text-gray-600 hover:text-indigo-600 transition-colors"
+                    className="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
                   >
                     Sign out
                   </button>
@@ -43,7 +43,7 @@ export default function NavBar() {
               ) : (
                 <Link
                   href="/login"
-                  className="text-sm text-gray-600 hover:text-indigo-600 transition-colors"
+                  className="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
                 >
                   Sign in
                 </Link>
@@ -51,12 +51,12 @@ export default function NavBar() {
 
               <button
                 onClick={() => setCartOpen(true)}
-                className="relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 transition-colors"
+                className="relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-800 transition-colors"
                 aria-label="Open cart"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-700"
+                  className="h-6 w-6 text-slate-300"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -69,7 +69,7 @@ export default function NavBar() {
                   />
                 </svg>
                 {mounted && totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                  <span className="absolute -top-1 -right-1 bg-indigo-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium ring-2 ring-slate-950">
                     {totalItems > 9 ? "9+" : totalItems}
                   </span>
                 )}

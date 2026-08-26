@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #020617;
+  --foreground: #f1f5f9;
 }
 
 @theme inline {
@@ -12,13 +12,29 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* This app is designed as a light theme only — no component has dark
-   variants. Auto-inverting via prefers-color-scheme made body text and
-   headings (e.g. text-gray-900) sit on a near-black background for users
-   with system dark mode on, making them nearly unreadable. */
-
+/* Deliberate dark theme — deep slate background with a soft ambient
+   indigo/violet glow behind the content for depth, rather than a flat
+   black. Fixed + behind everything (z-index -10) so it never interferes
+   with scrolling or readability. */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  background:
+    radial-gradient(600px circle at 15% 0%, rgba(99, 102, 241, 0.16), transparent 60%),
+    radial-gradient(500px circle at 85% 15%, rgba(139, 92, 246, 0.14), transparent 60%);
+  pointer-events: none;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: #ffffff;
 }

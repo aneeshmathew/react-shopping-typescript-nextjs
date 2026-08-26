@@ -28,7 +28,7 @@ export default function AddToCartButton({
     variant === "large" ? "px-8 py-3 text-base" : "px-4 py-2 text-sm";
   const colors = added
     ? "bg-green-500 text-white"
-    : "bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95";
+    : "bg-indigo-500 text-white hover:bg-indigo-400 active:scale-95";
 
   return (
     <button onClick={handleAdd} className={`${base} ${sizes} ${colors}`}>
