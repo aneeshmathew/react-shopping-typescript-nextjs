@@ -12,12 +12,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* This app is designed as a light theme only — no component has dark
+   variants. Auto-inverting via prefers-color-scheme made body text and
+   headings (e.g. text-gray-900) sit on a near-black background for users
+   with system dark mode on, making them nearly unreadable. */
 
 body {
   background: var(--background);
