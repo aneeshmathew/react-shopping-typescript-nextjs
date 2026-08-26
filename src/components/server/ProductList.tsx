@@ -1,17 +1,56 @@
 import { getProducts } from "@/lib/server/api";
 import ProductCard from "./ProductCard";
+import type { Product } from "@/types";
 
 interface ProductListProps {
   category?: string;
+  q?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  minRating?: string;
 }
 
-export default async function ProductList({ category }: ProductListProps) {
-  const products = await getProducts(category);
+function toNumber(value?: string): number | undefined {
+  if (value === undefined || value === "") return undefined;
+  const n = Number(value);
+  return Number.isNaN(n) ? undefined : n;
+}
+
+export default async function ProductList({
+  category,
+  q,
+  minPrice,
+  maxPrice,
+  minRating,
+}: ProductListProps) {
+  let products: Product[] = [];
+  let hasError = false;
+
+  try {
+    products = await getProducts({
+      category,
+      q,
+      minPrice: toNumber(minPrice),
+      maxPrice: toNumber(maxPrice),
+      minRating: toNumber(minRating),
+    });
+  } catch (err) {
+    console.error("ProductList: failed to fetch products", err);
+    hasError = true;
+  }
+
+  if (hasError) {
+    return (
+      <div className="text-center py-20 text-gray-500">
+        We couldn&apos;t load products right now. Please try again in a moment.
+      </div>
+    );
+  }
 
   if (products.length === 0) {
     return (
       <div className="text-center py-20 text-gray-500">
-        No products found in this category.
+        No products match your filters.
       </div>
     );
   }

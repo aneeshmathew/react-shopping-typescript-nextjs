@@ -19,3 +19,11 @@ export interface CartItem {
 }
 
 export type Category = string;
+
+export interface ProductQueryOptions {
+  category?: string;
+  q?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  minRating?: number;
+}

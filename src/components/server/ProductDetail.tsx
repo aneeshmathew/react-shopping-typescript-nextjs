@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProduct } from "@/lib/server/api";
 import AddToCartButton from "@/components/client/AddToCartButton";
+import { formatCategoryLabel } from "@/lib/formatCategoryLabel";
 
 interface ProductDetailProps {
   params: Promise<{ id: string }>;
@@ -57,8 +58,8 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
           </div>
 
           <div className="p-8 md:p-10 flex flex-col">
-            <span className="inline-block text-xs font-medium text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full mb-3 capitalize w-fit">
-              {product.category}
+            <span className="inline-block text-xs font-medium text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full mb-3 w-fit">
+              {formatCategoryLabel(product.category)}
             </span>
 
             <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-4">

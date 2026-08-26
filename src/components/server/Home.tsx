@@ -1,34 +1,53 @@
 import { Suspense } from "react";
 import { getCategories } from "@/lib/server/api";
 import ProductList from "@/components/server/ProductList";
-import CategoryFilter from "@/components/client/CategoryFilter";
+import ProductFilters from "@/components/client/ProductFilters";
+import SearchBar from "@/components/client/SearchBar";
+import { formatCategoryLabel } from "@/lib/formatCategoryLabel";
 
 interface HomeProps {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{
+    category?: string;
+    q?: string;
+    minPrice?: string;
+    maxPrice?: string;
+    minRating?: string;
+  }>;
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const { category } = await searchParams;
-  const categories = await getCategories();
+  const { category, q, minPrice, maxPrice, minRating } = await searchParams;
+  const categories = await getCategories().catch(() => []);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-1">
-          {category ? (
-            <span className="capitalize">{category}</span>
-          ) : (
-            "All Products"
-          )}
-        </h1>
-        <p className="text-gray-500 text-sm">
-          Discover our curated collection of products
-        </p>
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-1">
+            {q ? (
+              <>Results for &ldquo;{q}&rdquo;</>
+            ) : category ? (
+              formatCategoryLabel(category)
+            ) : (
+              "All Products"
+            )}
+          </h1>
+          <p className="text-gray-500 text-sm">
+            Discover our curated collection of products
+          </p>
+        </div>
+        <SearchBar initialQuery={q ?? ""} />
       </div>
 
       <div className="mb-8">
         <Suspense fallback={null}>
-          <CategoryFilter categories={categories} selected={category} />
+          <ProductFilters
+            categories={categories}
+            selectedCategory={category}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            minRating={minRating}
+          />
         </Suspense>
       </div>
 
@@ -44,7 +63,13 @@ export default async function Home({ searchParams }: HomeProps) {
           </div>
         }
       >
-        <ProductList category={category} />
+        <ProductList
+          category={category}
+          q={q}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          minRating={minRating}
+        />
       </Suspense>
     </div>
   );
